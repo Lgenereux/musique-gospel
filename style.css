@@ -91,7 +91,7 @@ footer {
     height: 100%; /* Pleine hauteur */
     overflow: auto; /* Permet le défilement si le contenu est trop grand */
     background-color: rgba(0,0,0,0.7); /* Fond semi-transparent noir */
-    display: flex; /* Utilise flexbox pour centrer le contenu */
+    /* display: flex; <--- SUPPRIMEZ CETTE LIGNE ! */
     justify-content: center;
     align-items: center;
 }
