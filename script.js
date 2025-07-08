@@ -40,7 +40,75 @@ document.addEventListener('DOMContentLoaded', function() {
             modaleArtiste.style.display = "none";
         }
     }
+     document.addEventListener('DOMContentLoaded', function() {
+    // ... votre code existant pour les modales ...
 
+    // === GESTION DU MENU LATÉRAL ===
+    var menuLateral = document.getElementById("menuLateral");
+    var btnOuvrirMenuLateral = document.getElementById("ouvrirMenuLateral");
+    var btnFermerMenuLateral = document.querySelector(".fermer-bouton-lateral");
+
+    // Fonction pour ouvrir le menu latéral
+    if (btnOuvrirMenuLateral) {
+        btnOuvrirMenuLateral.onclick = function() {
+            menuLateral.style.width = "250px"; // Définit la largeur d'ouverture
+            document.body.classList.add("menu-ouvert"); // Ajoute une classe au body pour décaler le contenu
+        }
+    }
+
+    // Fonction pour fermer le menu latéral
+    if (btnFermerMenuLateral) {
+        btnFermerMenuLateral.onclick = function() {
+            menuLateral.style.width = "0"; // Réinitialise la largeur à 0 (cache le menu)
+            document.body.classList.remove("menu-ouvert"); // Retire la classe pour ramener le contenu
+        }
+    }
+
+    // Gérer la fermeture du menu si on clique sur un lien à l'intérieur
+    var liensMenuLateral = menuLateral.querySelectorAll('a');
+    liensMenuLateral.forEach(function(link) {
+        link.onclick = function() {
+            menuLateral.style.width = "0";
+            document.body.classList.remove("menu-ouvert");
+        }
+    });
+
+    // === MISE À JOUR de la fonction window.onclick pour inclure la fermeture du menu latéral ===
+    // Il faut faire attention si vous avez déjà un window.onclick.
+    // L'idéal est de regrouper toute la logique de fermeture au clic extérieur ici.
+
+    var oldWindowOnClick = window.onclick; // Sauvegarde la fonction existante si elle existe
+
+    window.onclick = function(event) {
+        // Exécute d'abord l'ancienne fonction window.onclick si elle existe
+        if (oldWindowOnClick) {
+            oldWindowOnClick(event);
+        }
+
+        // Fermeture des modales existantes (code déjà présent, assurez-vous qu'il est inclus)
+        var modaleVideo = document.getElementById("maModaleVideo");
+        var modaleArtiste = document.getElementById("maModaleArtiste");
+
+        if (event.target == modaleVideo) {
+            modaleVideo.style.display = "none";
+            var iframe = modaleVideo.querySelector('iframe');
+            if (iframe) {
+                var iframeSrc = iframe.src;
+                iframe.src = iframeSrc;
+            }
+        }
+        if (event.target == modaleArtiste) {
+            modaleArtiste.style.display = "none";
+        }
+
+        // Fermeture du menu latéral si le clic est en dehors et que le menu est ouvert
+        if (menuLateral.style.width === "250px" && event.target !== btnOuvrirMenuLateral && !menuLateral.contains(event.target)) {
+            menuLateral.style.width = "0";
+            document.body.classList.remove("menu-ouvert");
+        }
+    }
+
+}); // Fin de document.addEventListener('DOMContentLoaded', function()
 
     // Quand l'utilisateur clique n'importe où en dehors de la modale, la fermer
     window.onclick = function(event) {
