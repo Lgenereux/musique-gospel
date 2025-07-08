@@ -7,19 +7,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="menuLateral" class="menu-lateral">
+        <a href="javascript:void(0)" class="fermer-bouton-lateral">×</a>
+        <a href="#accueil">Accueil</a>
+        <a href="#chants">Chants Inspirants</a>
+        <a href="#artistes">Artistes</a>
+        <a href="#contact">Contact</a>
+    </div>
+
     <header>
         <h1>Bienvenue sur Harmonies Gospel</h1>
-        <header>
-    <h1>Bienvenue sur Harmonies Gospel</h1>
-    <button id="ouvrirMenuLateral" class="menu-bouton">☰</button> <nav>
-        <ul>
-            <li><a href="#accueil">Accueil</a></li>
-            <li><a href="#chants">Chants Inspirants</a></li>
-            <li><a href="#artistes">Artistes</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-</header>
+        <button id="ouvrirMenuLateral" class="menu-bouton">☰</button>
         <nav>
             <ul>
                 <li><a href="#accueil">Accueil</a></li>
@@ -34,7 +32,7 @@
         <section id="accueil">
             <h2>Plongez dans la beauté de la musique gospel</h2>
             <p>Découvrez des chants qui touchent l'âme et inspirent.</p>
-            </section>
+        </section>
 
         <section id="chants">
             <h2>Nos morceaux préférés</h2>
@@ -45,37 +43,39 @@
         <section id="artistes">
             <h2>Les voix du Gospel</h2>
             <p>Rencontrez les artistes qui nous inspirent.</p>
-            <button id="ouvrirModaleArtiste">Lire la biographie d'un artiste</button> 
+            <button id="ouvrirModaleArtiste">Lire la biographie d'un artiste</button>
         </section>
 
         <section id="contact">
             <h2>Une question ? Contactez-nous !</h2>
             <p>Nous serions ravis de vous lire.</p>
-            </section>
+        </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Harmonies Gospel. Tous droits réservés.</p>
+        <p>© 2025 Harmonies Gospel. Tous droits réservés.</p>
     </footer>
-    <div id="maModaleVideo" class="modale">
-    <div class="modale-contenu">
-        <span class="fermer-bouton">&times;</span>
-        <h2>Titre du Chant / Vidéo</h2>
-        <p>Contenu de la modale ici (par exemple, une balise iframe pour une vidéo YouTube) :</p>
-        <div class="video-responsive">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/XXXXXX" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        </div>
-</div>
 
-<div id="maModaleArtiste" class="modale">
-    <div class="modale-contenu">
-        <span class="fermer-bouton">&times;</span>
-        <h2>Nom de l'Artiste</h2>
-        <p>Biographie détaillée de l'artiste...</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    <div id="maModaleVideo" class="modale">
+        <div class="modale-contenu">
+            <span class="fermer-bouton">×</span>
+            <h2>Titre du Chant / Vidéo</h2>
+            <p>Contenu de la modale ici (par exemple, une balise iframe pour une vidéo YouTube) :</p>
+            <div class="video-responsive">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/XXXXXX" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
     </div>
-</div>
+
+    <div id="maModaleArtiste" class="modale">
+        <div class="modale-contenu">
+            <span class="fermer-bouton">×</span>
+            <h2>Nom de l'Artiste</h2>
+            <p>Biographie détaillée de l'artiste...</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </div>
+
     <script src="script.js"></script>
-    </body>
+</body>
 </html>
