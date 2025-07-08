@@ -80,3 +80,74 @@ footer {
     color: white;
     margin-top: 40px;
 }
+/* Styles de base de la modale */
+.modale {
+    display: none; /* Caché par défaut */
+    position: fixed; /* Reste en place même en scrollant */
+    z-index: 1; /* Par-dessus tout le reste */
+    left: 0;
+    top: 0;
+    width: 100%; /* Pleine largeur */
+    height: 100%; /* Pleine hauteur */
+    overflow: auto; /* Permet le défilement si le contenu est trop grand */
+    background-color: rgba(0,0,0,0.7); /* Fond semi-transparent noir */
+    display: flex; /* Utilise flexbox pour centrer le contenu */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenu de la modale */
+.modale-contenu {
+    background-color: #fefefe;
+    margin: auto; /* Centrage automatique avec flexbox */
+    padding: 30px;
+    border: 1px solid #888;
+    width: 80%; /* Largeur par défaut */
+    max-width: 700px; /* Largeur maximale pour les grands écrans */
+    border-radius: 8px;
+    position: relative; /* Pour positionner le bouton fermer */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation-name: animerModale;
+    animation-duration: 0.4s;
+}
+
+/* Bouton Fermer */
+.fermer-bouton {
+    color: #aaa;
+    float: right; /* Aligne à droite */
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute; /* Positionne absolument par rapport au contenu */
+    top: 10px;
+    right: 20px;
+}
+
+.fermer-bouton:hover,
+.fermer-bouton:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Animation pour l'apparition de la modale */
+@keyframes animerModale {
+    from {transform: scale(0.7); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+
+/* Styles pour rendre la vidéo YouTube responsive dans la modale */
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* Ratio 16:9 */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 20px; /* Espacement après la vidéo */
+}
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
