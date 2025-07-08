@@ -151,3 +151,80 @@ footer {
     width: 100%;
     height: 100%;
 }
+/* --- Styles pour le menu latéral (Sidebar) --- */
+
+/* Bouton pour ouvrir le menu (Hamburger) */
+.menu-bouton {
+    font-size: 30px;
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+    border: none;
+    position: absolute; /* Positionne le bouton par rapport au header */
+    left: 20px; /* Position à gauche */
+    top: 50%; /* Centre verticalement */
+    transform: translateY(-50%); /* Ajustement précis du centrage vertical */
+    z-index: 2; /* S'assure qu'il est au-dessus d'autres éléments si besoin */
+    display: none; /* Caché par défaut, sera affiché sur les petits écrans */
+}
+
+/* Styles du menu latéral */
+.menu-lateral {
+    height: 100%; /* Toute la hauteur */
+    width: 0; /* Largeur 0 par défaut (caché) */
+    position: fixed; /* Reste en place */
+    z-index: 3; /* Par-dessus tout le reste (modales inclues) */
+    top: 0;
+    left: 0;
+    background-color: #333; /* Couleur de fond foncée */
+    overflow-x: hidden; /* Cache le contenu qui dépasse horizontalement */
+    transition: 0.5s; /* Animation de glissement */
+    padding-top: 60px; /* Espacement en haut pour le bouton fermer */
+    box-shadow: 2px 0 10px rgba(0,0,0,0.5); /* Ombre pour l'effet de profondeur */
+}
+
+/* Liens à l'intérieur du menu latéral */
+.menu-lateral a {
+    padding: 15px 8px 15px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block; /* Chaque lien sur sa propre ligne */
+    transition: 0.3s;
+}
+
+/* Au survol des liens */
+.menu-lateral a:hover {
+    color: #f1f1f1;
+    background-color: #555;
+}
+
+/* Bouton de fermeture (X) du menu latéral */
+.menu-lateral .fermer-bouton-lateral {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color: #ccc;
+}
+
+/* --- Styles pour la réactivité (Afficher le bouton Hamburger sur petits écrans) --- */
+@media screen and (max-width: 768px) {
+    /* Cache la navigation principale sur les petits écrans */
+    header nav {
+        display: none;
+    }
+    /* Affiche le bouton du menu latéral sur les petits écrans */
+    .menu-bouton {
+        display: block;
+    }
+    /* Ajuste la largeur du menu latéral sur mobile (optionnel) */
+    .menu-lateral {
+        width: 250px; /* Largeur fixe quand ouvert */
+    }
+    /* Déplace le contenu principal quand le menu latéral est ouvert */
+    body.menu-ouvert main {
+        margin-left: 250px; /* Décale le contenu principal */
+    }
+}
