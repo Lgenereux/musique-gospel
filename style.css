@@ -12,6 +12,7 @@ header {
     padding: 1.5em 0;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: relative; /* AJOUTÉ: Important pour positionner le bouton menu correctement */
 }
 
 header h1 {
@@ -48,6 +49,7 @@ main {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: margin-left 0.5s; /* AJOUTÉ: Pour l'animation du décalage du contenu */
 }
 
 section {
@@ -80,7 +82,8 @@ footer {
     color: white;
     margin-top: 40px;
 }
-/* Styles de base de la modale */
+
+/* --- Styles de la modale --- */
 .modale {
     display: none; /* Caché par défaut */
     position: fixed; /* Reste en place même en scrollant */
@@ -91,15 +94,15 @@ footer {
     height: 100%; /* Pleine hauteur */
     overflow: auto; /* Permet le défilement si le contenu est trop grand */
     background-color: rgba(0,0,0,0.7); /* Fond semi-transparent noir */
-    /* display: flex; <--- SUPPRIMEZ CETTE LIGNE ! */
-    justify-content: center;
-    align-items: center;
+    /* display: flex; a été supprimé ici, c'est bon */
+    justify-content: center; /* Centrage horizontal avec flexbox (quand display:flex est activé par JS) */
+    align-items: center; /* Centrage vertical avec flexbox (quand display:flex est activé par JS) */
 }
 
 /* Contenu de la modale */
 .modale-contenu {
     background-color: #fefefe;
-    margin: auto; /* Centrage automatique avec flexbox */
+    margin: auto; /* Centrage automatique */
     padding: 30px;
     border: 1px solid #888;
     width: 80%; /* Largeur par défaut */
@@ -111,7 +114,7 @@ footer {
     animation-duration: 0.4s;
 }
 
-/* Bouton Fermer */
+/* Bouton Fermer (x) pour les modales */
 .fermer-bouton {
     color: #aaa;
     float: right; /* Aligne à droite */
@@ -151,36 +154,37 @@ footer {
     width: 100%;
     height: 100%;
 }
+
 /* --- Styles pour le menu latéral (Sidebar) --- */
 
-/* Bouton pour ouvrir le menu (Hamburger) */
+/* Le bouton hamburger par défaut : CACHÉ sur les grands écrans */
 .menu-bouton {
     font-size: 30px;
     cursor: pointer;
     background-color: transparent;
     color: white;
     border: none;
-    position: absolute; /* Positionne le bouton par rapport au header */
-    left: 20px; /* Position à gauche */
-    top: 50%; /* Centre verticalement */
-    transform: translateY(-50%); /* Ajustement précis du centrage vertical */
-    z-index: 2; /* S'assure qu'il est au-dessus d'autres éléments si besoin */
-    display: none; /* Caché par défaut, sera affiché sur les petits écrans */
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    display: none; /* CACHÉ par défaut */
 }
 
-/* Styles du menu latéral */
+/* Styles du menu latéral lui-même */
 .menu-lateral {
-    height: 100%; /* Toute la hauteur */
-    width: 0; /* Largeur 0 par défaut (caché) */
-    position: fixed; /* Reste en place */
-    z-index: 3; /* Par-dessus tout le reste (modales inclues) */
+    height: 100%; /* Toute la hauteur de la fenêtre */
+    width: 0; /* Largeur 0 par défaut (il est donc CACHÉ) */
+    position: fixed; /* Reste en place même en scrollant */
+    z-index: 1000; /* Assure qu'il est au-dessus de tout le reste, y compris les modales */
     top: 0;
     left: 0;
-    background-color: #333; /* Couleur de fond foncée */
+    background-color: #333; /* Fond sombre */
     overflow-x: hidden; /* Cache le contenu qui dépasse horizontalement */
-    transition: 0.5s; /* Animation de glissement */
-    padding-top: 60px; /* Espacement en haut pour le bouton fermer */
-    box-shadow: 2px 0 10px rgba(0,0,0,0.5); /* Ombre pour l'effet de profondeur */
+    transition: 0.5s; /* Animation douce pour l'ouverture/fermeture */
+    padding-top: 60px; /* Espace pour le bouton de fermeture en haut */
+    box-shadow: 2px 0 10px rgba(0,0,0,0.5); /* Légère ombre pour l'effet */
 }
 
 /* Liens à l'intérieur du menu latéral */
@@ -193,7 +197,7 @@ footer {
     transition: 0.3s;
 }
 
-/* Au survol des liens */
+/* Au survol des liens du menu latéral */
 .menu-lateral a:hover {
     color: #f1f1f1;
     background-color: #555;
@@ -209,22 +213,22 @@ footer {
     color: #ccc;
 }
 
-/* --- Styles pour la réactivité (Afficher le bouton Hamburger sur petits écrans) --- */
+/* --- RÉACTIVITÉ : Styles spécifiques aux écrans de petite taille (mobile/tablette) --- */
 @media screen and (max-width: 768px) {
-    /* Cache la navigation principale sur les petits écrans */
+    /* Cache la navigation principale de l'en-tête sur les petits écrans */
     header nav {
         display: none;
     }
-    /* Affiche le bouton du menu latéral sur les petits écrans */
+    /* Affiche le bouton du menu latéral (hamburger) sur les petits écrans */
     .menu-bouton {
-        display: block;
+        display: block; /* Écrase le 'display: none' par défaut */
     }
-    /* Ajuste la largeur du menu latéral sur mobile (optionnel) */
-    .menu-lateral {
-        width: 250px; /* Largeur fixe quand ouvert */
+    /* Lorsque le menu latéral est OUVERT (classe 'ouvert' ajoutée par JS), définit sa largeur */
+    .menu-lateral.ouvert { /* C'est cette classe que le JS ajoutera */
+        width: 250px; /* Largeur du menu quand il est visible */
     }
-    /* Déplace le contenu principal quand le menu latéral est ouvert */
+    /* Décale le contenu principal pour laisser la place au menu latéral quand il est ouvert */
     body.menu-ouvert main {
-        margin-left: 250px; /* Décale le contenu principal */
+        margin-left: 250px; /* Décale main vers la droite */
     }
 }
