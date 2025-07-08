@@ -94,7 +94,6 @@ footer {
     height: 100%; /* Pleine hauteur */
     overflow: auto; /* Permet le défilement si le contenu est trop grand */
     background-color: rgba(0,0,0,0.7); /* Fond semi-transparent noir */
-    /* display: flex; a été supprimé ici, c'est bon */
     justify-content: center; /* Centrage horizontal avec flexbox (quand display:flex est activé par JS) */
     align-items: center; /* Centrage vertical avec flexbox (quand display:flex est activé par JS) */
 }
@@ -175,7 +174,7 @@ footer {
 /* Styles du menu latéral lui-même */
 .menu-lateral {
     height: 100%; /* Toute la hauteur de la fenêtre */
-    width: 0; /* Largeur 0 par défaut (il est donc CACHÉ) */
+    width: 0; /* TRÈS IMPORTANT : Largeur 0 par défaut (il est donc CACHÉ) */
     position: fixed; /* Reste en place même en scrollant */
     z-index: 1000; /* Assure qu'il est au-dessus de tout le reste, y compris les modales */
     top: 0;
@@ -224,7 +223,7 @@ footer {
         display: block; /* Écrase le 'display: none' par défaut */
     }
     /* Lorsque le menu latéral est OUVERT (classe 'ouvert' ajoutée par JS), définit sa largeur */
-    .menu-lateral.ouvert { /* C'est cette classe que le JS ajoutera */
+    .menu-lateral.ouvert { /* C'est cette règle qui est déclenchée par le JS */
         width: 250px; /* Largeur du menu quand il est visible */
     }
     /* Décale le contenu principal pour laisser la place au menu latéral quand il est ouvert */
