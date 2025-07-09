@@ -1,104 +1,94 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // === GESTION DES MODALES : VIDÉO/CHANT ===
-    var modaleVideo = document.getElementById("maModaleVideo");
-    var btnOuvrirVideo = document.getElementById("ouvrirModaleVideo");
-    var spanFermerVideo = modaleVideo.querySelector(".fermer-bouton");
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Gestion du Menu Latéral (Off-canvas) ---
+    const openSideMenuBtn = document.getElementById('openSideMenu');
+    const sideMenu = document.getElementById('sideMenu');
+    const closeSideMenuBtn = document.querySelector('.side-menu .close-btn');
+    const menuLinks = document.querySelectorAll('.side-menu .menu-link');
 
-    if (btnOuvrirVideo) {
-        btnOuvrirVideo.onclick = function() {
-            modaleVideo.style.display = "flex"; // Affiche la modale en utilisant flex pour le centrage
-        }
+    if (openSideMenuBtn && sideMenu && closeSideMenuBtn) {
+        openSideMenuBtn.addEventListener('click', () => {
+            sideMenu.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Empêche le défilement du body
+        });
+
+        closeSideMenuBtn.addEventListener('click', () => {
+            sideMenu.classList.remove('open');
+            document.body.style.overflow = 'auto'; // Rétablit le défilement
+        });
+
+        // Ferme le menu quand un lien est cliqué (utile pour les single-page applications)
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sideMenu.classList.remove('open');
+                document.body.style.overflow = 'auto';
+            });
+        });
     }
 
-    if (spanFermerVideo) {
-        spanFermerVideo.onclick = function() {
-            modaleVideo.style.display = "none"; // Cache la modale
-            // Arrête la lecture de la vidéo lorsque la modale se ferme
-            var iframe = modaleVideo.querySelector('iframe');
-            if (iframe) {
-                var iframeSrc = iframe.src;
-                iframe.src = iframeSrc; // Recharge l'iframe pour arrêter la vidéo
+    // --- Gestion des Modales (Vidéo et Artiste) ---
+    const openVideoModalBtn = document.getElementById('openVideoModal');
+    const maModaleVideo = document.getElementById('maModaleVideo');
+    const closeVideoModalBtn = maModaleVideo.querySelector('.fermer-bouton');
+
+    if (openVideoModalBtn && maModaleVideo && closeVideoModalBtn) {
+        openVideoModalBtn.addEventListener('click', () => {
+            maModaleVideo.style.display = 'flex'; // Utilise flex pour le centrage CSS
+        });
+
+        closeVideoModalBtn.addEventListener('click', () => {
+            maModaleVideo.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === maModaleVideo) {
+                maModaleVideo.style.display = 'none';
             }
-        }
+        });
     }
 
-    // === GESTION DES MODALES : ARTISTE ===
-    var modaleArtiste = document.getElementById("maModaleArtiste");
-    var btnOuvrirArtiste = document.getElementById("ouvrirModaleArtiste");
-    var spanFermerArtiste = modaleArtiste.querySelector(".fermer-bouton");
+    const openArtistModalBtn = document.getElementById('openArtistModal');
+    const maModaleArtiste = document.getElementById('maModaleArtiste');
+    const closeArtistModalBtn = maModaleArtiste.querySelector('.fermer-bouton');
 
-    if (btnOuvrirArtiste) {
-        btnOuvrirArtiste.onclick = function() {
-            modaleArtiste.style.display = "flex";
-        }
-    }
+    if (openArtistModalBtn && maModaleArtiste && closeArtistModalBtn) {
+        openArtistModalBtn.addEventListener('click', () => {
+            maModaleArtiste.style.display = 'flex'; // Utilise flex pour le centrage CSS
+        });
 
-    if (spanFermerArtiste) {
-        spanFaleurArtiste.onclick = function() { // Correction : 'spanFaleurArtiste' -> 'spanFermerArtiste'
-            modaleArtiste.style.display = "none";
-        }
-    }
+        closeArtistModalBtn.addEventListener('click', () => {
+            maModaleArtiste.style.display = 'none';
+        });
 
-    // === GESTION DU MENU LATÉRAL ===
-    var menuLateral = document.getElementById("menuLateral");
-    var btnOuvrirMenuLateral = document.getElementById("ouvrirMenuLateral");
-    var btnFermerMenuLateral = document.querySelector(".fermer-bouton-lateral");
-
-    // Fonction pour ouvrir le menu latéral
-    if (btnOuvrirMenuLateral) {
-        btnOuvrirMenuLateral.onclick = function() {
-            menuLateral.style.width = "250px"; // Définit la largeur pour le rendre visible
-            document.body.classList.add("menu-ouvert"); // Ajoute une classe au corps pour décaler le contenu
-            menuLateral.classList.add("ouvert"); // Ajoute une classe au menu latéral lui-même pour le style CSS
-        }
-    }
-
-    // Fonction pour fermer le menu latéral
-    if (btnFermerMenuLateral) {
-        btnFermerMenuLateral.onclick = function() {
-            menuLateral.style.width = "0"; // Réinitialise la largeur à 0 (cache le menu)
-            document.body.classList.remove("menu-ouvert"); // Retire la classe du corps pour ramener le contenu
-            menuLateral.classList.remove("ouvert"); // Retire la classe du menu latéral
-        }
-    }
-
-    // Gère la fermeture du menu si on clique sur un lien à l'intérieur
-    var liensMenuLateral = menuLateral.querySelectorAll('a');
-    liensMenuLateral.forEach(function(link) {
-        link.onclick = function() {
-            menuLateral.style.width = "0";
-            document.body.classList.remove("menu-ouvert");
-            menuLateral.classList.remove("ouvert");
-        }
-    });
-
-    // === GESTION DES CLICS GLOBAUX (pour fermer les modales et le menu latéral) ===
-    // Cette fonction gère les clics n'importe où sur la fenêtre.
-    // Elle DOIT REMPLACER TOUTE FONCTION window.onclick précédente que vous pourriez avoir.
-
-    window.onclick = function(event) {
-        // Logique de fermeture des modales (assure que les modales se ferment au clic en dehors)
-        if (event.target == modaleVideo) {
-            modaleVideo.style.display = "none";
-            // Arrête la lecture de la vidéo si elle est en cours
-            var iframe = modaleVideo.querySelector('iframe');
-            if (iframe) {
-                var iframeSrc = iframe.src;
-                iframe.src = iframeSrc;
+        window.addEventListener('click', (event) => {
+            if (event.target === maModaleArtiste) {
+                maModaleArtiste.style.display = 'none';
             }
-        }
-        if (event.target == modaleArtiste) {
-            modaleArtiste.style.display = "none";
-        }
-
-        // Logique de fermeture du menu latéral
-        // Vérifie si le menu latéral est ouvert
-        // ET si l'élément cliqué N'EST PAS le bouton d'ouverture du menu latéral
-        // ET si l'élément cliqué N'EST PAS à l'intérieur du menu latéral lui-même.
-        if (menuLateral.classList.contains("ouvert") && event.target !== btnOuvrirMenuLateral && !menuLateral.contains(event.target)) { // Correction : utilise classList.contains("ouvert")
-            menuLateral.style.width = "0"; // Ferme le menu
-            document.body.classList.remove("menu-ouvert"); // Retire la classe de décalage
-            menuLateral.classList.remove("ouvert"); // Retire la classe CSS
-        }
+        });
     }
-}); // Fin de document.addEventListener('DOMContentLoaded')
+
+    // --- Gestion de la classe 'active' pour les liens de navigation ---
+    const allNavLinks = document.querySelectorAll('.desktop-nav ul li a, .side-menu .menu-link');
+    const sections = document.querySelectorAll('main section');
+
+    const updateActiveLink = () => {
+        let currentActiveSection = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100; // Ajustez ce décalage si votre header est grand
+            const sectionBottom = sectionTop + section.offsetHeight;
+            if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+                currentActiveSection = section.id;
+            }
+        });
+
+        allNavLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentActiveSection}`) {
+                link.classList.add('active');
+            }
+        });
+    };
+
+    // Mettre à jour la classe active au chargement et au défilement
+    window.addEventListener('scroll', updateActiveLink);
+    updateActiveLink(); // Appel initial pour définir la classe active au chargement
+});
