@@ -5,20 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harmonies Gospel</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="menuLateral" class="menu-lateral">
-        <a href="javascript:void(0)" class="fermer-bouton-lateral">×</a>
-        <a href="#accueil">Accueil</a>
-        <a href="#chants">Chants Inspirants</a>
-        <a href="#artistes">Artistes</a>
-        <a href="#contact">Contact</a>
+
+    <div id="sideMenu" class="side-menu">
+        <a href="javascript:void(0)" class="close-btn">&times;</a>
+        <a href="#accueil" class="menu-link">Accueil</a>
+        <a href="#chants" class="menu-link">Chants Inspirants</a>
+        <a href="#artistes" class="menu-link">Artistes</a>
+        <a href="#contact" class="menu-link">Contact</a>
     </div>
 
-    <header>
-        <h1>Bienvenue sur Harmonies Gospel</h1>
-        <button id="ouvrirMenuLateral" class="menu-bouton">☰</button>
-        <nav>
+    <header class="main-header">
+        <div class="logo">
+            <a href="#accueil">Harmonies Gospel</a>
+        </div>
+        
+        <button id="openSideMenu" class="hamburger-btn">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <nav class="desktop-nav">
             <ul>
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#chants">Chants Inspirants</a></li>
@@ -29,47 +39,50 @@
     </header>
 
     <main>
-        <section id="accueil">
-            <h2>Plongez dans la beauté de la musique gospel</h2>
-            <p>Découvrez des chants qui touchent l'âme et inspirent.</p>
+        <section id="accueil" class="hero-section">
+            <div class="hero-content">
+                <h2>Plongez dans la beauté des **Harmonies Gospel**</h2>
+                <p>Découvrez des chants qui touchent l'âme et inspirent, et explorez le monde de nos artistes.</p>
+                <a href="#chants" class="btn-primary">Explorer les Chants</a>
+            </div>
         </section>
 
-        <section id="chants">
+        <section id="chants" class="content-section">
             <h2>Nos morceaux préférés</h2>
             <p>Écoutez et laissez-vous transporter.</p>
-            <button id="ouvrirModaleVideo">Regarder un chant inspirant</button>
+            <button id="openVideoModal" class="btn-secondary">Regarder un chant inspirant</button>
         </section>
 
-        <section id="artistes">
+        <section id="artistes" class="content-section">
             <h2>Les voix du Gospel</h2>
             <p>Rencontrez les artistes qui nous inspirent.</p>
-            <button id="ouvrirModaleArtiste">Lire la biographie d'un artiste</button>
+            <button id="openArtistModal" class="btn-secondary">Lire la biographie d'un artiste</button>
         </section>
 
-        <section id="contact">
+        <section id="contact" class="content-section contact-section">
             <h2>Une question ? Contactez-nous !</h2>
             <p>Nous serions ravis de vous lire.</p>
-        </section>
+            </section>
     </main>
 
     <footer>
-        <p>© 2025 Harmonies Gospel. Tous droits réservés.</p>
-    </footer>
+        <p>&copy; 2025 Harmonies Gospel. Tous droits réservés.</p>
+        </footer>
 
     <div id="maModaleVideo" class="modale">
         <div class="modale-contenu">
-            <span class="fermer-bouton">×</span>
+            <span class="fermer-bouton">&times;</span>
             <h2>Titre du Chant / Vidéo</h2>
             <p>Contenu de la modale ici (par exemple, une balise iframe pour une vidéo YouTube) :</p>
             <div class="video-responsive">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/XXXXXX" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
 
     <div id="maModaleArtiste" class="modale">
         <div class="modale-contenu">
-            <span class="fermer-bouton">×</span>
+            <span class="fermer-bouton">&times;</span>
             <h2>Nom de l'Artiste</h2>
             <p>Biographie détaillée de l'artiste...</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
