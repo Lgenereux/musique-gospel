@@ -1,151 +1,304 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* --- Global Reset & Base Styles --- */
+* {
     margin: 0;
-    background-color: #e9f5e9; /* Vert très clair */
-    color: #2c3e50; /* Bleu-gris foncé */
-    line-height: 1.6;
-}
-
-header {
-    background-color: #2ecc71; /* Vert émeraude */
-    color: white;
-    padding: 1.5em 0;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    position: relative; /* AJOUTÉ: Important pour positionner le bouton menu correctement */
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
-}
-
-nav ul {
-    list-style-type: none;
     padding: 0;
-    margin-top: 10px;
+    box-sizing: border-box;
 }
 
-nav ul li {
-    display: inline;
-    margin: 0 20px;
+body {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f8f8;
+    overflow-x: hidden; /* Empêche le défilement horizontal causé par des éléments hors écran */
 }
 
-nav ul li a {
-    color: white;
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: #2c3e50; /* Couleur de titre plus foncée */
+    margin-bottom: 15px;
+}
+
+a {
     text-decoration: none;
-    font-weight: bold;
+    color: inherit; /* Les liens héritent la couleur du texte parent par défaut */
+}
+
+ul {
+    list-style: none;
+}
+
+/* --- Boutons Génériques --- */
+.btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    border: none; /* Supprime la bordure par défaut des boutons */
+}
+
+.btn-primary {
+    background-color: #4CAF50; /* Vert vif */
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #45a049;
+}
+
+.btn-secondary {
+    background-color: #f1f1f1;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.btn-secondary:hover {
+    background-color: #e2e2e2;
+}
+
+/* --- Header Principal --- */
+.main-header {
+    background-color: #2c3e50; /* Bleu foncé ou gris-noir pour un look pro */
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky; /* Rends le header "sticky" */
+    top: 0;
+    width: 100%;
+    z-index: 100; /* Assure qu'il est au-dessus du contenu */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Légère ombre pour le relief */
+}
+
+.main-header .logo a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: white;
+}
+
+/* --- Bouton Hamburger (pour mobile) --- */
+.hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    display: block; /* Visible par défaut, sera caché sur desktop */
+    z-index: 101; /* Au-dessus du menu latéral pour qu'il soit cliquable */
+}
+
+.hamburger-btn .bar {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+/* --- Navigation Desktop (cachée sur mobile) --- */
+.desktop-nav {
+    display: none; /* Cachée par défaut sur mobile */
+}
+
+.desktop-nav ul {
+    display: flex;
+}
+
+.desktop-nav ul li {
+    margin-left: 25px;
+}
+
+.desktop-nav ul li a {
+    color: white;
+    font-weight: 600;
+    padding: 5px 0;
+    position: relative;
     transition: color 0.3s ease;
 }
 
-nav ul li a:hover {
-    color: #ecf0f1; /* Gris clair */
+.desktop-nav ul li a::after { /* Effet de soulignement au survol */
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #4CAF50; /* Couleur d'accentuation */
+    bottom: -5px;
+    left: 0;
+    transition: width 0.3s ease-out;
 }
 
+.desktop-nav ul li a:hover::after,
+.desktop-nav ul li a.active::after { /* Ajout de la classe .active pour la page courante */
+    width: 100%;
+}
+
+.desktop-nav ul li a:hover,
+.desktop-nav ul li a.active {
+    color: #4CAF50; /* Couleur d'accentuation au survol/actif */
+}
+
+/* --- Menu Latéral (la "fenêtre") --- */
+.side-menu {
+    height: 100%;
+    width: 0; /* Caché par défaut */
+    position: fixed;
+    z-index: 100; /* Au-dessus du contenu, mais en dessous du bouton hamburger */
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.95); /* Fond très sombre et semi-transparent */
+    overflow-x: hidden;
+    transition: 0.5s; /* Animation fluide */
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre les liens horizontalement */
+    justify-content: center; /* Centre les liens verticalement */
+}
+
+.side-menu.open {
+    width: 100%; /* S'ouvre en plein écran sur mobile */
+}
+
+.side-menu .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 45px;
+    color: #f1f1f1;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.side-menu .close-btn:hover {
+    color: #4CAF50;
+}
+
+.side-menu .menu-link {
+    padding: 15px;
+    text-decoration: none;
+    font-size: 28px;
+    color: #b0b0b0; /* Gris clair pour les liens */
+    display: block;
+    transition: 0.3s;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.side-menu .menu-link:hover,
+.side-menu .menu-link.active { /* Ajout de la classe .active */
+    color: #4CAF50; /* Couleur d'accentuation au survol/actif */
+}
+
+/* --- Sections de Contenu --- */
 main {
-    padding: 30px;
-    max-width: 1000px;
-    margin: 30px auto;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: margin-left 0.5s; /* AJOUTÉ: Pour l'animation du décalage du contenu */
+    padding: 0; /* Le padding sera dans les sections elles-mêmes */
 }
 
-section {
-    margin-bottom: 40px;
-    padding: 25px;
-    border-bottom: 1px solid #dee6de; /* Vert très clair */
-}
-
-section:last-child {
-    border-bottom: none;
-}
-
-h2 {
-    color: #27ae60; /* Vert foncé */
-    text-align: center;
-    margin-bottom: 25px;
-    font-size: 2em;
-}
-
-p {
-    text-align: center;
-    font-size: 1.1em;
-    color: #555;
-}
-
-footer {
-    text-align: center;
-    padding: 25px;
-    background-color: #34495e; /* Bleu foncé */
+.hero-section {
+    background: url('https://via.placeholder.com/1500x800/2c3e50/ffffff?text=Image+Gospel+Inspirante') no-repeat center center/cover; /* Remplacez par votre image */
     color: white;
-    margin-top: 40px;
+    text-align: center;
+    padding: 100px 20px;
+    min-height: 60vh; /* Minimum 60% de la hauteur de la vue */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* --- Styles de la modale --- */
+.hero-section h2 {
+    font-size: 2.8em;
+    margin-bottom: 20px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Ombre pour le texte sur l'image */
+}
+
+.hero-section p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.content-section {
+    padding: 60px 20px;
+    max-width: 960px;
+    margin: 0 auto;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    margin-bottom: 40px; /* Espace entre les sections */
+    text-align: center; /* Centre le contenu des sections */
+}
+
+.content-section:first-of-type {
+    margin-top: 40px; /* Espace après le header sticky */
+}
+
+.contact-section {
+    background-color: #f0f4f7; /* Couleur de fond légèrement différente */
+}
+
+/* --- Modales --- */
 .modale {
     display: none; /* Caché par défaut */
-    position: fixed; /* Reste en place même en scrollant */
-    z-index: 1; /* Par-dessus tout le reste */
+    position: fixed;
+    z-index: 200; /* Plus haut que tout pour être visible */
     left: 0;
     top: 0;
-    width: 100%; /* Pleine largeur */
-    height: 100%; /* Pleine hauteur */
-    overflow: auto; /* Permet le défilement si le contenu est trop grand */
-    background-color: rgba(0,0,0,0.7); /* Fond semi-transparent noir */
-    justify-content: center; /* Centrage horizontal avec flexbox (quand display:flex est activé par JS) */
-    align-items: center; /* Centrage vertical avec flexbox (quand display:flex est activé par JS) */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7); /* Fond plus opaque */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Contenu de la modale */
 .modale-contenu {
     background-color: #fefefe;
-    margin: auto; /* Centrage automatique */
+    margin: auto; /* Centrage via flexbox */
     padding: 30px;
-    border: 1px solid #888;
-    width: 80%; /* Largeur par défaut */
-    max-width: 700px; /* Largeur maximale pour les grands écrans */
-    border-radius: 8px;
-    position: relative; /* Pour positionner le bouton fermer */
+    border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    animation-name: animerModale;
-    animation-duration: 0.4s;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    text-align: left; /* Aligne le texte des modales à gauche */
 }
 
-/* Bouton Fermer (x) pour les modales */
+.modale-contenu h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
 .fermer-bouton {
     color: #aaa;
-    float: right; /* Aligne à droite */
-    font-size: 28px;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 30px;
     font-weight: bold;
-    position: absolute; /* Positionne absolument par rapport au contenu */
-    top: 10px;
-    right: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 .fermer-bouton:hover,
 .fermer-bouton:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+    color: #4CAF50;
 }
 
-/* Animation pour l'apparition de la modale */
-@keyframes animerModale {
-    from {transform: scale(0.7); opacity: 0;}
-    to {transform: scale(1); opacity: 1;}
-}
-
-/* Styles pour rendre la vidéo YouTube responsive dans la modale */
 .video-responsive {
     position: relative;
-    padding-bottom: 56.25%; /* Ratio 16:9 */
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
     height: 0;
     overflow: hidden;
-    margin-bottom: 20px; /* Espacement après la vidéo */
+    max-width: 100%;
+    background: #000;
 }
-
 .video-responsive iframe {
     position: absolute;
     top: 0;
@@ -154,80 +307,40 @@ footer {
     height: 100%;
 }
 
-/* --- Styles pour le menu latéral (Sidebar) --- */
 
-/* Le bouton hamburger par défaut : CACHÉ sur les grands écrans */
-.menu-bouton {
-    font-size: 30px;
-    cursor: pointer;
-    background-color: transparent;
+/* --- Footer --- */
+footer {
+    background-color: #2c3e50;
     color: white;
-    border: none;
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    display: none; /* CACHÉ par défaut */
+    text-align: center;
+    padding: 25px 20px;
+    font-size: 0.9em;
+    margin-top: 50px;
 }
 
-/* Styles du menu latéral lui-même */
-.menu-lateral {
-    height: 100%; /* Toute la hauteur de la fenêtre */
-    width: 0; /* TRÈS IMPORTANT : Largeur 0 par défaut (il est donc CACHÉ) */
-    position: fixed; /* Reste en place même en scrollant */
-    z-index: 1000; /* Assure qu'il est au-dessus de tout le reste, y compris les modales */
-    top: 0;
-    left: 0;
-    background-color: #333; /* Fond sombre */
-    overflow-x: hidden; /* Cache le contenu qui dépasse horizontalement */
-    transition: 0.5s; /* Animation douce pour l'ouverture/fermeture */
-    padding-top: 60px; /* Espace pour le bouton de fermeture en haut */
-    box-shadow: 2px 0 10px rgba(0,0,0,0.5); /* Légère ombre pour l'effet */
-}
-
-/* Liens à l'intérieur du menu latéral */
-.menu-lateral a {
-    padding: 15px 8px 15px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block; /* Chaque lien sur sa propre ligne */
-    transition: 0.3s;
-}
-
-/* Au survol des liens du menu latéral */
-.menu-lateral a:hover {
-    color: #f1f1f1;
-    background-color: #555;
-}
-
-/* Bouton de fermeture (X) du menu latéral */
-.menu-lateral .fermer-bouton-lateral {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-    color: #ccc;
-}
-
-/* --- RÉACTIVITÉ : Styles spécifiques aux écrans de petite taille (mobile/tablette) --- */
-@media screen and (max-width: 768px) {
-    /* Cache la navigation principale de l'en-tête sur les petits écrans */
-    header nav {
+/* --- Media Queries pour la Réactivité --- */
+@media (min-width: 768px) {
+    /* Sur les écrans plus grands, on cache le bouton hamburger */
+    .hamburger-btn {
         display: none;
     }
-    /* Affiche le bouton du menu latéral (hamburger) sur les petits écrans */
-    .menu-bouton {
-        display: block; /* Écrase le 'display: none' par défaut */
+
+    /* Et on affiche la navigation desktop */
+    .desktop-nav {
+        display: block;
     }
-    /* Lorsque le menu latéral est OUVERT (classe 'ouvert' ajoutée par JS), définit sa largeur */
-    .menu-lateral.ouvert { /* C'est cette règle qui est déclenchée par le JS */
-        width: 250px; /* Largeur du menu quand il est visible */
+
+    /* Le menu latéral ne s'ouvre pas automatiquement sur desktop */
+    .side-menu {
+        width: 0; /* Assure qu'il est fermé */
     }
-    /* Décale le contenu principal pour laisser la place au menu latéral quand il est ouvert */
-    body.menu-ouvert main {
-        margin-left: 250px; /* Décale main vers la droite */
+
+    /* Ajustement du padding du header sur desktop */
+    .main-header {
+        padding: 20px 50px;
+    }
+
+    .hero-section h2 {
+        font-size: 3.5em;
     }
 }
