@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const openSideMenuBtn = document.getElementById('openSideMenu');
     const sideMenu = document.getElementById('sideMenu');
     const closeSideMenuBtn = document.querySelector('.side-menu .close-btn');
-    const menuLinks = document.querySelectorAll('.side-menu .menu-link');
+    const menuLinks = document.querySelectorAll('.side-menu .menu-link, .desktop-nav ul li a'); // Inclure les liens desktop pour la classe active
 
     if (openSideMenuBtn && sideMenu && closeSideMenuBtn) {
         openSideMenuBtn.addEventListener('click', () => {
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Ferme le menu quand un lien est cliqué (utile pour les single-page applications)
-        menuLinks.forEach(link => {
+        document.querySelectorAll('.side-menu .menu-link').forEach(link => { // Cibler uniquement les liens du menu latéral
             link.addEventListener('click', () => {
                 sideMenu.classList.remove('open');
                 document.body.style.overflow = 'auto';
@@ -25,62 +25,106 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Gestion des Modales (Vidéo et Artiste) ---
-    const openVideoModalBtn = document.getElementById('openVideoModal');
+    // --- Gestion Générique des Modales ---
     const maModaleVideo = document.getElementById('maModaleVideo');
-    const closeVideoModalBtn = maModaleVideo.querySelector('.fermer-bouton');
-
-    if (openVideoModalBtn && maModaleVideo && closeVideoModalBtn) {
-        openVideoModalBtn.addEventListener('click', () => {
-            maModaleVideo.style.display = 'flex'; // Utilise flex pour le centrage CSS
-        });
-
-        closeVideoModalBtn.addEventListener('click', () => {
-            maModaleVideo.style.display = 'none';
-        });
-
-        window.addEventListener('click', (event) => {
-            if (event.target === maModaleVideo) {
-                maModaleVideo.style.display = 'none';
-            }
-        });
-    }
-
-    const openArtistModalBtn = document.getElementById('openArtistModal');
     const maModaleArtiste = document.getElementById('maModaleArtiste');
-    const closeArtistModalBtn = maModaleArtiste.querySelector('.fermer-bouton');
 
-    if (openArtistModalBtn && maModaleArtiste && closeArtistModalBtn) {
-        openArtistModalBtn.addEventListener('click', () => {
-            maModaleArtiste.style.display = 'flex'; // Utilise flex pour le centrage CSS
-        });
+    // Contenu des artistes (vous pouvez le charger depuis une API ou un fichier JSON plus tard)
+    const artistesData = {
+        'mahalia': {
+            nom: 'Mahalia Jackson',
+            bio: 'Mahalia Jackson (1911-1972) était une chanteuse américaine de gospel, largement reconnue comme la "Reine du Gospel". Avec sa voix puissante et expressive, elle a joué un rôle majeur dans la popularisation de la musique gospel à travers le monde. Elle a également été une figure importante du mouvement des droits civiques.'
+        },
+        'kirk': {
+            nom: 'Kirk Franklin',
+            bio: 'Kirk Franklin (né en 1970) est un musicien, compositeur et producteur de gospel américain primé aux Grammy Awards. Il est connu pour son approche innovante, fusionnant le gospel avec des éléments de hip-hop, R&B et pop, attirant un public jeune et diversifié.'
+        }
+        // Ajoutez d'autres artistes ici
+    };
 
-        closeArtistModalBtn.addEventListener('click', () => {
-            maModaleArtiste.style.display = 'none';
-        });
+    // Fonction pour ouvrir une modale
+    const openModal = (modalElement) => {
+        modalElement.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    };
 
-        window.addEventListener('click', (event) => {
-            if (event.target === maModaleArtiste) {
-                maModaleArtiste.style.display = 'none';
+    // Fonction pour fermer une modale
+    const closeModal = (modalElement) => {
+        modalElement.classList.remove('show');
+        document.body.style.overflow = 'auto';
+
+        // Spécifique pour la modale vidéo : arrêter la lecture
+        const videoIframe = modalElement.querySelector('iframe');
+        if (videoIframe) {
+            const currentSrc = videoIframe.src;
+            videoIframe.src = ''; // Vide le src pour arrêter la vidéo
+            videoIframe.src = currentSrc; // Réinitialise le src pour qu'elle puisse rejouer
+        }
+    };
+
+    // Délégation d'événements pour les boutons d'ouverture de modale (chants et artistes)
+    document.addEventListener('click', (event) => {
+        // Boutons "Regarder la vidéo"
+        if (event.target.classList.contains('open-video-modal')) {
+            const videoUrl = event.target.dataset.videoUrl;
+            const videoTitle = event.target.closest('.chant-item').querySelector('h3').textContent; // Récupère le titre du chant
+            maModaleVideo.querySelector('h2').textContent = videoTitle;
+            maModaleVideo.querySelector('iframe').src = videoUrl;
+            openModal(maModaleVideo);
+        }
+
+        // Boutons "Lire la biographie"
+        if (event.target.classList.contains('open-artist-modal')) {
+            const artistId = event.target.dataset.artistId;
+            const artist = artistesData[artistId];
+            if (artist) {
+                maModaleArtiste.querySelector('h2').textContent = artist.nom;
+                maModaleArtiste.querySelector('.artiste-bio').textContent = artist.bio;
+                openModal(maModaleArtiste);
             }
-        });
-    }
+        }
+
+        // Boutons de fermeture des modales
+        if (event.target.classList.contains('fermer-bouton') && event.target.closest('.modale')) {
+            closeModal(event.target.closest('.modale'));
+        }
+
+        // Fermeture des modales en cliquant en dehors
+        if (event.target.classList.contains('modale')) {
+            closeModal(event.target);
+        }
+    });
+
+    // Fermeture des modales/menu avec la touche Échap
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            if (maModaleVideo.classList.contains('show')) {
+                closeModal(maModaleVideo);
+            }
+            if (maModaleArtiste.classList.contains('show')) {
+                closeModal(maModaleArtiste);
+            }
+            if (sideMenu.classList.contains('open')) {
+                sideMenu.classList.remove('open');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    });
 
     // --- Gestion de la classe 'active' pour les liens de navigation ---
-    const allNavLinks = document.querySelectorAll('.desktop-nav ul li a, .side-menu .menu-link');
     const sections = document.querySelectorAll('main section');
 
     const updateActiveLink = () => {
         let currentActiveSection = '';
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100; // Ajustez ce décalage si votre header est grand
+            const sectionTop = section.offsetTop - 120; // Ajustez ce décalage si votre header est grand
             const sectionBottom = sectionTop + section.offsetHeight;
             if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
                 currentActiveSection = section.id;
             }
         });
 
-        allNavLinks.forEach(link => {
+        menuLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${currentActiveSection}`) {
                 link.classList.add('active');
