@@ -48,16 +48,50 @@
         </section>
 
         <section id="chants" class="content-section">
-            <h2>Nos morceaux préférés</h2>
-            <p>Écoutez et laissez-vous transporter.</p>
-            <button id="openVideoModal" class="btn-secondary">Regarder un chant inspirant</button>
-        </section>
+    <h2>Nos Morceaux Préférés</h2>
+    <p>Plongez dans l'émotion des chants Gospel qui touchent l'âme.</p>
+    <div class="chants-grid">
+        <div class="chant-item">
+            <img src="https://via.placeholder.com/300x200?text=Chant+1" alt="Image du Chant Amazing Grace">
+            <h3>Amazing Grace</h3>
+            <p>par John Newton</p>
+            <button class="btn-secondary open-video-modal" data-video-url="https://www.youtube.com/embed/S_OT-wQ4bE8?autoplay=1">Regarder la vidéo</button>
+        </div>
+        <div class="chant-item">
+            <img src="https://via.placeholder.com/300x200?text=Chant+2" alt="Image du Chant Oh Happy Day">
+            <h3>Oh Happy Day</h3>
+            <p>par Edwin Hawkins Singers</p>
+            <button class="btn-secondary open-video-modal" data-video-url="https://www.youtube.com/embed/Pj15b-9J1nI?autoplay=1">Regarder la vidéo</button>
+        </div>
+        <div class="chant-item">
+            <img src="https://via.placeholder.com/300x200?text=Chant+3" alt="Image du Chant Hallelujah">
+            <h3>Hallelujah (version Gospel)</h3>
+            <p>par Leonard Cohen (arrangement Gospel)</p>
+            <button class="btn-secondary open-video-modal" data-video-url="https://www.youtube.com/embed/fmJd2QWz_7g?autoplay=1">Regarder la vidéo</button>
+        </div>
+    </div>
+    <a href="#contact" class="btn-primary" style="margin-top: 30px;">Nous Suggérer un Chant</a>
+</section>
 
         <section id="artistes" class="content-section">
-            <h2>Les voix du Gospel</h2>
-            <p>Rencontrez les artistes qui nous inspirent.</p>
-            <button id="openArtistModal" class="btn-secondary">Lire la biographie d'un artiste</button>
-        </section>
+    <h2>Les Voix du Gospel</h2>
+    <p>Découvrez les artistes inspirants qui portent le message à travers leur musique.</p>
+    <div class="artistes-grid">
+        <div class="artiste-item">
+            <img src="https://via.placeholder.com/200x200?text=Artiste+1" alt="Photo de Mahalia Jackson">
+            <h3>Mahalia Jackson</h3>
+            <p>La Reine du Gospel, une voix légendaire.</p>
+            <button class="btn-secondary open-artist-modal" data-artist-id="mahalia">Lire la biographie</button>
+        </div>
+        <div class="artiste-item">
+            <img src="https://via.placeholder.com/200x200?text=Artiste+2" alt="Photo de Kirk Franklin">
+            <h3>Kirk Franklin</h3>
+            <p>Innovateur du Gospel contemporain.</p>
+            <button class="btn-secondary open-artist-modal" data-artist-id="kirk">Lire la biographie</button>
+        </div>
+    </div>
+    <a href="#contact" class="btn-primary" style="margin-top: 30px;">Nous Suggérer un Artiste</a>
+</section>
 
         <section id="contact" class="content-section contact-section">
             <h2>Une question ? Contactez-nous !</h2>
@@ -70,24 +104,19 @@
         </footer>
 
     <div id="maModaleVideo" class="modale">
-        <div class="modale-contenu">
-            <span class="fermer-bouton">&times;</span>
-            <h2>Titre du Chant / Vidéo</h2>
-            <p>Contenu de la modale ici (par exemple, une balise iframe pour une vidéo YouTube) :</p>
-            <div class="video-responsive">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+    <div class="modale-contenu">
+        <span class="fermer-bouton">×</span>
+        <h2></h2> <div class="video-responsive">
+            <iframe width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
         </div>
     </div>
+</div>
 
-    <div id="maModaleArtiste" class="modale">
-        <div class="modale-contenu">
-            <span class="fermer-bouton">&times;</span>
-            <h2>Nom de l'Artiste</h2>
-            <p>Biographie détaillée de l'artiste...</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
-    </div>
+<div id="maModaleArtiste" class="modale">
+    <div class="modale-contenu">
+        <span class="fermer-bouton">×</span>
+        <h2></h2> <p class="artiste-bio"></p> </div>
+</div>
 
     <script src="script.js"></script>
 </body>
