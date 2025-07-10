@@ -4,6 +4,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     font-family: 'Open Sans', sans-serif;
@@ -207,6 +210,22 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative; /* Ajouté pour l'overlay */
+    z-index: 1; /* Assure que le texte est au-dessus */
+}
+.hero-section::before { /* Nouveau: Overlay pour la lisibilité */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Overlay noir semi-transparent */
+    z-index: -1; /* Place l'overlay derrière le contenu */
+}
+.hero-section h2, .hero-section p, .hero-section .btn-primary {
+    position: relative;
+    z-index: 2; /* S'assure que le contenu est au-dessus de l'overlay */
 }
 
 .hero-section h2 {
@@ -240,21 +259,104 @@ main {
 .contact-section {
     background-color: #f0f4f7; /* Couleur de fond légèrement différente */
 }
+/* --- Grilles pour Chants et Artistes --- */
+.chants-grid, .artistes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 3 colonnes sur grand écran, s'adapte */
+    gap: 30px; /* Espacement entre les éléments */
+    margin-top: 40px;
+}
+
+.chant-item, .artiste-item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chant-item:hover, .artiste-item:hover {
+    transform: translateY(-5px); /* Léger effet de soulèvement */
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.chant-item img, .artiste-item img {
+    max-width: 100%;
+    border-radius: 8px; /* Bords légèrement arrondis pour les images */
+    margin-bottom: 15px;
+    height: 200px; /* Hauteur fixe pour les images de chant */
+    object-fit: cover; /* Recadre l'image pour couvrir l'espace */
+}
+
+.artiste-item img {
+    border-radius: 50%; /* Images rondes pour les artistes */
+    width: 150px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover; /* Assure que l'image remplit le cercle */
+}
+
+.chant-item h3, .artiste-item h3 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.chant-item p, .artiste-item p {
+    font-size: 0.95em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.chant-item .btn-secondary, .artiste-item .btn-secondary {
+    width: 80%; /* Boutons plus larges */
+    padding: 10px 15px;
+    font-size: 0.9em;
+}
+
+/* Styles spécifiques pour les petits écrans */
+@media (max-width: 767px) {
+    .chants-grid, .artistes-grid {
+        grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+    }
+}
 
 /* --- Modales --- */
 .modale {
-    display: none; /* Caché par défaut */
+    /* display: none; Supprimé, géré par opacity/visibility */
     position: fixed;
-    z-index: 200; /* Plus haut que tout pour être visible */
+    z-index: 200;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.7); /* Fond plus opaque */
-    display: flex;
+    background-color: rgba(0,0,0,0.7);
+    display: flex; /* Garde flex pour le centrage quand visible */
     justify-content: center;
     align-items: center;
+    opacity: 0; /* Commence invisible */
+    visibility: hidden; /* N'est pas interactif */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transition */
+    pointer-events: none; /* Empêche les clics quand cachée */
+}
+
+.modale.show { /* Nouvelle classe ajoutée par JS */
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; /* Permet les clics quand visible */
+}
+
+.modale-contenu {
+    /* ... vos styles existants ... */
+    transform: translateY(20px); /* Commence légèrement décalé */
+    transition: transform 0.3s ease; /* Transition pour le déplacement */
+}
+
+.modale.show .modale-contenu { /* Applique la transformation quand la modale est 'show' */
+    transform: translateY(0);
 }
 
 .modale-contenu {
